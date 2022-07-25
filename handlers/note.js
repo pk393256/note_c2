@@ -24,3 +24,25 @@ async function createNote(req,res){
     })
 
 }
+
+async function deleteNote(req,res){
+    let {title}=req.params;
+    // let {id}=req.query;
+    
+    await Note.findOneAndDelete({title:title});
+    req.send('Note Deleted')
+}
+async function updateNote(req,res){
+    let {title}=req.params;
+    let update=req.body;
+
+    await Note.findOneAndUpdate({title:title},update)
+    return res.send("note has been updated")
+}
+
+module.exports={
+    getAllNotes,
+    createNote,
+    deleteNote,
+    updateNote
+}
